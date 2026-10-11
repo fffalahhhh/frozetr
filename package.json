@@ -1,0 +1,10 @@
+{
+  "name": "frozen-shake-cash-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A browser-only daily cash tracker for a frozen shake shop",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}

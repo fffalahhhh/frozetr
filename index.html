@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f3ed" />
+    <meta
+      name="description"
+      content="A simple, private daily cash tracker for Frozen Shake."
+    />
+    <title>Frozen Shake Cash Tracker</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Frozen Shake Cash Tracker home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="14" fill="currentColor" />
+              <path d="M12 15h16l-2 15H14l-2-15Z" fill="#fff8ed" />
+              <path d="M14 12h12M20 9v6M17 5l3 4 3-4" stroke="#fff8ed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M14 20c3 2 8 2 12 0" stroke="#ec8f50" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Frozen Shake</strong>
+            <span>Cash tracker</span>
+          </span>
+        </a>
+
+        <p class="nav-caption">WORKSPACE</p>
+        <nav class="side-nav" aria-label="Main navigation">
+          <button class="nav-link is-active" type="button" data-view="today">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17M8 13h3m2 0h3m-8 3.5h3"/></svg>
+            </span>
+            <span>Today</span>
+          </button>
+          <button class="nav-link" type="button" data-view="history">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 7.5A8.5 8.5 0 1 1 3.6 14M4 4v4h4"/><path d="M12 7v5l3.5 2"/></svg>
+            </span>
+            <span>History</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="privacy-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3m-4 4v3"/></svg>
+          </span>
+          <strong>Your records stay here</strong>
+          <p>Saved only in this browser. They aren’t synced to other devices.</p>
+        </div>
+        <div class="sidebar-footer">Made for the daily close.</div>
+      </aside>
+
+      <div class="main-column">
+        <header class="topbar">
+          <a class="mobile-brand" href="/" aria-label="Frozen Shake Cash Tracker home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none">
+                <rect width="40" height="40" rx="14" fill="currentColor" />
+                <path d="M12 15h16l-2 15H14l-2-15Z" fill="#fff8ed" />
+                <path d="M14 12h12M20 9v6M17 5l3 4 3-4" stroke="#fff8ed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 20c3 2 8 2 12 0" stroke="#ec8f50" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="brand-copy"><strong>Frozen Shake</strong><span>Cash tracker</span></span>
+          </a>
+          <div class="topbar-label">SHOP FINANCES <span aria-hidden="true">/</span> DAILY CASH</div>
+          <div class="local-badge"><span></span> Private to this browser</div>
+        </header>
+
+        <main class="page-content">
+          <div class="storage-alert" id="storageAlert" role="alert" hidden></div>
+
+          <section id="todayView" class="view">
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow" id="todayEyebrow">MONDAY, 12 OCTOBER</p>
+                <h1>Today’s cash</h1>
+                <p class="heading-subtitle">A clear picture of what came in and what went out.</p>
+              </div>
+              <label class="date-picker">
+                <span class="sr-only">Choose a date</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"/></svg>
+                <input id="selectedDate" type="date" aria-label="Choose a date" />
+              </label>
+            </div>
+
+            <section class="balance-panel" aria-labelledby="balanceTitle">
+              <div class="balance-topline">
+                <span class="balance-label" id="balanceTitle">CASH IN HAND</span>
+                <span class="today-chip" id="selectedDayChip">SELECTED DAY</span>
+              </div>
+              <div class="balance-amount" id="cashInHand">₹0.00</div>
+              <p class="balance-equation" id="balanceEquation">Revenue − expenses − handovers</p>
+              <div class="balance-divider"></div>
+              <div class="balance-breakdown">
+                <div><span>Revenue</span><strong id="balanceRevenue">₹0.00</strong></div>
+                <span class="equation-sign" aria-hidden="true">−</span>
+                <div><span>Expenses</span><strong id="balanceExpenses">₹0.00</strong></div>
+                <span class="equation-sign" aria-hidden="true">−</span>
+                <div><span>Handed to partners</span><strong id="balanceHandovers">₹0.00</strong></div>
+              </div>
+            </section>
+
+            <section class="revenue-panel panel">
+              <div class="section-title-row">
+                <div class="title-icon revenue-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 3v18m5-14.5c-.7-1-2.1-1.5-4-1.5-2.4 0-4 1.1-4 2.8 0 4.1 8 1.9 8 6.3 0 1.8-1.8 3.4-4.4 3.4-1.9 0-3.6-.6-4.6-1.8"/></svg>
+                </div>
+                <div>
+                  <h2>Daily revenue</h2>
+                  <p>Enter the total cash sales for this date.</p>
+                </div>
+              </div>
+              <form id="revenueForm" class="revenue-form">
+                <label class="amount-input">
+                  <span aria-hidden="true">₹</span>
+                  <input id="revenueAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" required aria-label="Total daily cash revenue in rupees" />
+                </label>
+                <button class="button button-dark" type="submit">Save revenue</button>
+                <span class="saved-indicator" id="revenueSaved" hidden>Saved for this date</span>
+              </form>
+            </section>
+
+            <div class="activity-header">
+              <div>
+                <p class="eyebrow">MONEY OUT</p>
+                <h2>Daily activity</h2>
+              </div>
+              <button class="button button-quiet manage-button" id="manageCategories" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+                Manage categories
+              </button>
+            </div>
+
+            <div class="activity-grid">
+              <section class="panel activity-panel">
+                <div class="panel-heading">
+                  <div class="panel-heading-copy">
+                    <span class="mini-icon expense-mini" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 4v16M17 7.5c-.7-1-2-1.5-3.8-1.5-2.3 0-3.8 1.1-3.8 2.7 0 4 7.6 1.8 7.6 6 0 1.8-1.7 3.3-4.2 3.3-1.8 0-3.4-.6-4.4-1.7"/></svg>
+                    </span>
+                    <div><h3>Expenses</h3><span id="expenseCount" class="count-label">0 entries</span></div>
+                  </div>
+                  <strong id="expenseTotal" class="panel-total">₹0.00</strong>
+                </div>
+                <div id="expenseList" class="entry-list"></div>
+                <button class="add-entry-button" id="addExpense" type="button">
+                  <span aria-hidden="true">+</span> Add an expense
+                </button>
+              </section>
+
+              <section class="panel activity-panel">
+                <div class="panel-heading">
+                  <div class="panel-heading-copy">
+                    <span class="mini-icon handover-mini" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M7 7h12l-3.5-3.5M17 17H5l3.5 3.5M19 7a7 7 0 0 1 1 3m-15 7a7 7 0 0 1-1-3"/></svg>
+                    </span>
+                    <div><h3>Partner handovers</h3><span id="handoverCount" class="count-label">0 entries</span></div>
+                  </div>
+                  <strong id="handoverTotal" class="panel-total">₹0.00</strong>
+                </div>
+                <div id="handoverList" class="entry-list"></div>
+                <button class="add-entry-button" id="addHandover" type="button">
+                  <span aria-hidden="true">+</span> Record a handover
+                </button>
+              </section>
+            </div>
+
+            <section class="partner-summary panel">
+              <div class="partner-summary-heading">
+                <div>
+                  <p class="eyebrow">PARTNER CASH</p>
+                  <h2>Handover overview</h2>
+                  <p>Totals across all recorded days.</p>
+                </div>
+                <span class="partner-summary-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20m6-9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm6-6.6a3.5 3.5 0 0 1 0 6.8M17 15h1.5a3.5 3.5 0 0 1 3.5 3.5V20"/></svg>
+                </span>
+              </div>
+              <div class="partner-summary-content">
+                <div id="partnerTotals" class="partner-totals"></div>
+                <div class="recent-handovers">
+                  <div class="subsection-heading"><h3>Recent handovers</h3><span>Latest 5</span></div>
+                  <div id="recentHandovers" class="recent-list"></div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section id="historyView" class="view" hidden>
+            <div class="page-heading history-heading">
+              <div>
+                <p class="eyebrow">YOUR DAILY RECORDS</p>
+                <h1>Cash history</h1>
+                <p class="heading-subtitle">Every day with revenue, expenses, or partner handovers.</p>
+              </div>
+              <button class="button button-dark" id="historyToday" type="button">Back to today</button>
+            </div>
+            <section class="history-card panel">
+              <div class="history-header">
+                <div><h2>Recorded days</h2><p id="historyCount">No recorded days</p></div>
+                <span class="history-header-label">INR · RUPEES</span>
+              </div>
+              <div class="history-table-wrap">
+                <table class="history-table">
+                  <thead><tr><th scope="col">DATE</th><th scope="col">REVENUE</th><th scope="col">EXPENSES</th><th scope="col">HANDOVERS</th><th scope="col">CASH IN HAND</th><th><span class="sr-only">Open day</span></th></tr></thead>
+                  <tbody id="historyRows"></tbody>
+                </table>
+              </div>
+              <div class="history-empty" id="historyEmpty" hidden>
+                <span class="empty-illustration" aria-hidden="true">
+                  <svg viewBox="0 0 64 64"><rect x="12" y="15" width="40" height="37" rx="7"/><path d="M21 10v11m22-11v11M12 26h40M22 35h7m7 0h7m-21 8h7"/></svg>
+                </span>
+                <h3>No days recorded yet</h3>
+                <p>Save revenue or add an expense or handover, and your daily history will appear here.</p>
+                <button class="button button-dark" id="emptyHistoryToday" type="button">Go to today</button>
+              </div>
+            </section>
+          </section>
+
+          <footer class="page-footer">
+            <span>Frozen Shake · Daily cash tracker</span>
+            <span><i></i> Data saved in this browser only</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Main navigation">
+      <button class="nav-link is-active" type="button" data-view="today">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17M8 13h3m2 0h3m-8 3.5h3"/></svg></span><span>Today</span>
+      </button>
+      <button class="nav-link" type="button" data-view="history">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5A8.5 8.5 0 1 1 3.6 14M4 4v4h4"/><path d="M12 7v5l3.5 2"/></svg></span><span>History</span>
+      </button>
+    </nav>
+
+    <dialog class="entry-dialog" id="entryDialog" aria-labelledby="entryDialogTitle">
+      <form id="entryForm" class="dialog-form">
+        <div class="dialog-heading">
+          <div><p class="eyebrow" id="entryDialogEyebrow">DAILY ACTIVITY</p><h2 id="entryDialogTitle">Add expense</h2></div>
+          <button class="icon-button" type="button" data-close-dialog="entryDialog" aria-label="Close dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <label class="field-label" for="entryAmount">Amount</label>
+        <div class="amount-input dialog-amount"><span aria-hidden="true">₹</span><input id="entryAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required /></div>
+        <div id="expenseFields">
+          <label class="field-label" for="entryCategory">Category</label>
+          <select id="entryCategory" required></select>
+        </div>
+        <div id="handoverFields" hidden>
+          <label class="field-label" for="entryPartner">Partner who received cash</label>
+          <select id="entryPartner" required></select>
+        </div>
+        <label class="field-label" for="entryNote">Note <span class="optional-label">OPTIONAL</span></label>
+        <input class="text-input" id="entryNote" type="text" maxlength="180" placeholder="Add a short note" />
+        <div id="noCategoriesMessage" class="inline-message" hidden>No active categories. Add or restore a category in Manage categories first.</div>
+        <div class="dialog-actions">
+          <button class="button button-quiet" type="button" data-close-dialog="entryDialog">Cancel</button>
+          <button class="button button-dark" id="entrySubmit" type="submit">Save expense</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="category-dialog" id="categoryDialog" aria-labelledby="categoryDialogTitle">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">EXPENSE SETUP</p><h2 id="categoryDialogTitle">Manage categories</h2></div>
+        <button class="icon-button" type="button" data-close-dialog="categoryDialog" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <p class="dialog-description">Hidden categories stay on past expenses but won’t be offered for new ones. Removing a category also keeps its old records.</p>
+      <form id="categoryForm" class="new-category-form">
+        <label class="sr-only" for="newCategoryName">New category name</label>
+        <input class="text-input" id="newCategoryName" type="text" maxlength="36" placeholder="e.g. Delivery" required />
+        <button class="button button-dark" type="submit">Add category</button>
+      </form>
+      <div id="categoryList" class="category-list"></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
