@@ -1,0 +1,51 @@
+Build a complete, simple, responsive WEB app called “Frozen Shake Cash Tracker” for tracking the daily cash of my frozen shake shop. It should work well on a phone browser as well as desktop.
+
+Keep it focused on the shop’s cash tracking. Don’t add login, cloud sync, inventory management, or complicated accounting features.
+
+DATA AND CURRENCY
+- Show amounts in Indian rupees (₹ / INR).
+- Use the Asia/Kolkata local date when creating today’s records.
+- Save data in this browser so it persists after refresh. Clearly tell me that the records are stored only in this browser and are not synced to other devices.
+- Do not fill the app with fake sample transactions.
+- If I attach the Frozen Shake logo, use it in the app branding. Keep the visual style simple, warm, and easy to read.
+
+TODAY’S CASH
+Create a Today screen where I can:
+- Select a date and enter or update one total daily cash revenue amount for that date.
+- Add multiple expenses for that date. Each expense has an amount, category, and optional note.
+- Record cash handed to a partner. Each handover has a partner, amount, and optional note.
+- Edit or delete an expense or handover, with confirmation before deleting.
+- See the selected day’s revenue, total expenses, total handed to partners, and cash in hand.
+
+Calculate:
+Cash in hand = revenue − expenses − partner handovers.
+A partner handover is cash leaving the shop; don’t count it again as an expense.
+
+EXPENSE CATEGORIES
+Start with these categories:
+- Shop Stock
+- Shop Utilities
+- Salaries
+- Advance
+
+Let me add categories and manage them later. If a category is removed or hidden, don’t break or erase old expense records that used it.
+
+PARTNERS
+Start with these partners:
+- Falah
+- Kais
+- Hussain
+- Raees
+- Alkama
+
+Let me record each handover against the partner who received the cash. Show totals per partner and a recent handover list. The partner names are recipients, not app login accounts.
+
+HISTORY
+Create a History screen that lists days with recorded activity and shows each day’s revenue, expenses, handovers, and cash in hand. Let me open a past date and edit its records.
+
+DESIGN AND QUALITY
+- Keep navigation simple and make the Today screen the main screen.
+- Use clear labels, large touch-friendly controls, and useful empty states.
+- Validate amounts; don’t accept negative values or silently save invalid entries.
+- Make sure adding, editing, deleting, date selection, calculations, and saving after refresh all work end to end.
+- Keep the app straightforward and avoid features outside this scope.
